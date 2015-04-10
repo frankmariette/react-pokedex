@@ -1,0 +1,68 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300);
+
+body {
+  background: linear-gradient(to right, #8e44ad, #c0392b);
+  display: flex;
+  justify-content: space-around;
+  flex-flow: row wrap;
+  padding: 50px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.browser-mockup {
+  border-top: 2em solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 3px 3px 0 0
+-webkit-transition: -webkit-transform 1s;
+-o-transition: -o-transform 1s;
+transition: transform 1s;
+}
+
+.browser-mockup {
+  margin: 2em;
+  flex: 1;
+}
+
+.browser-mockup:before {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.25em;
+  left: 1em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: #f44;
+  box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+
+.browser-mockup.with-url:after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.6em;
+  left: 5.5em;
+  width: calc(100% - 6em);
+  height: 1.2em;
+  border-radius: 2px;
+  background-color: white;
+}
+
+.hoverslide {
+	background:#FFF;
+	width: 250px;
+	border-bottom: 2em solid white;
+    border-left: 0.8em solid transparent;
+    border-right: 0.8em solid transparent;
+	box-shadow: 0 10px 9px -9px #777;
+}
+
+.browser-mockup:hover {
+	transform: scale(1.4, 1.4);
+}

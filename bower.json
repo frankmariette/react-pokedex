@@ -1,0 +1,40 @@
+{
+  "name": "react-pokedex",
+  "version": "0.1.0",
+  "authors": [
+    "karrde00 <karrde00@gmail.com>"
+  ],
+  "description": "Pokedex created using react, backbone and node",
+  "main": "app.js",
+  "moduleType": [
+    "amd",
+    "es6",
+    "node"
+  ],
+  "keywords": [
+    "React",
+    "Express",
+    "Node",
+    "Pokemon",
+    "Backbone"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.13.1",
+    "react-router": "~0.13.2",
+    "backbone-amd": "~1.1.0",
+    "requirejs": "~2.1.17",
+    "underscore-amd": "~1.5.2",
+    "jsx-requirejs-plugin": "~0.6.0",
+    "requirejs-text": "~2.0.14",
+    "react.backbone": "~0.6.0",
+    "jquery": "~2.1.3"
+  }
+}
