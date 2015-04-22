@@ -1,4 +1,4 @@
-define(['exports', 'module', 'backbone', '../models/Pokemon', 'localstorage'], function (exports, module, _backbone, _modelsPokemon, _localstorage) {
+define(['exports', 'module', 'react', 'js/components/List', 'js/collections/Pokemen', 'backbone'], function (exports, module, _react, _jsComponentsList, _jsCollectionsPokemen, _backbone) {
 	'use strict';
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
@@ -11,34 +11,32 @@ define(['exports', 'module', 'backbone', '../models/Pokemon', 'localstorage'], f
 
 	var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
+	var _React = _interopRequire(_react);
+
+	var _List = _interopRequire(_jsComponentsList);
+
+	var _Pokemen = _interopRequire(_jsCollectionsPokemen);
+
 	var _Backbone = _interopRequire(_backbone);
 
-	var _Pokemon = _interopRequire(_modelsPokemon);
+	var App = (function (_Backbone$View) {
+		function App() {
+			_classCallCheck(this, App);
 
-	var _LocalStorage = _interopRequire(_localstorage);
-
-	var Pokemen = (function (_Backbone$Collection) {
-		function Pokemen() {
-			_classCallCheck(this, Pokemen);
-
-			_get(Object.getPrototypeOf(Pokemen.prototype), 'constructor', this).call(this);
-			this.model = _Pokemon;
-			this.LocalStorage = new _Backbone.LocalStorage('Pokemen');
-			this.url = 'http://pokeapi.co/api/v1/pokedex/1';
-			this.fetch();
+			_get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this);
 		}
 
-		_inherits(Pokemen, _Backbone$Collection);
+		_inherits(App, _Backbone$View);
 
-		_createClass(Pokemen, [{
-			key: 'parse',
-			value: function parse(response) {
-				return response.pokemon;
+		_createClass(App, [{
+			key: 'render',
+			value: function render() {
+				return _React.render(_React.createElement(_List, { collection: _Pokemen }), document.body);
 			}
 		}]);
 
-		return Pokemen;
-	})(_Backbone.Collection);
+		return App;
+	})(_Backbone.View);
 
-	module.exports = new Pokemen();
+	module.exports = App;
 });

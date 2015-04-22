@@ -1,4 +1,4 @@
-define(['exports', 'module', 'backbone', '../models/Pokemon', 'localstorage'], function (exports, module, _backbone, _modelsPokemon, _localstorage) {
+define(['exports', 'module', 'react', 'js/collections/Pokemen', 'backbone-react-component'], function (exports, module, _react, _jsCollectionsPokemen, _backboneReactComponent) {
 	'use strict';
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
@@ -11,34 +11,66 @@ define(['exports', 'module', 'backbone', '../models/Pokemon', 'localstorage'], f
 
 	var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-	var _Backbone = _interopRequire(_backbone);
+	var _React = _interopRequire(_react);
 
-	var _Pokemon = _interopRequire(_modelsPokemon);
+	var _Pokemen = _interopRequire(_jsCollectionsPokemen);
 
-	var _LocalStorage = _interopRequire(_localstorage);
+	var _reactbackbone = _interopRequire(_backboneReactComponent);
 
-	var Pokemen = (function (_Backbone$Collection) {
-		function Pokemen() {
-			_classCallCheck(this, Pokemen);
+	var AbilityView = (function (_React$Component) {
+		function AbilityView() {
+			_classCallCheck(this, AbilityView);
 
-			_get(Object.getPrototypeOf(Pokemen.prototype), 'constructor', this).call(this);
-			this.model = _Pokemon;
-			this.LocalStorage = new _Backbone.LocalStorage('Pokemen');
-			this.url = 'http://pokeapi.co/api/v1/pokedex/1';
-			this.fetch();
+			_get(Object.getPrototypeOf(AbilityView.prototype), 'constructor', this).call(this);
 		}
 
-		_inherits(Pokemen, _Backbone$Collection);
+		_inherits(AbilityView, _React$Component);
 
-		_createClass(Pokemen, [{
-			key: 'parse',
-			value: function parse(response) {
-				return response.pokemon;
+		_createClass(AbilityView, [{
+			key: 'render',
+			value: function render() {
+				return _React.createElement(
+					'li',
+					null,
+					this.props.ability.name
+				);
 			}
 		}]);
 
-		return Pokemen;
-	})(_Backbone.Collection);
+		return AbilityView;
+	})(_React.Component);
 
-	module.exports = new Pokemen();
+	var List = _React.createClass({
+		displayName: 'List',
+
+		mixins: [Backbone.React.Component.mixin],
+		createListItem: function createListItem(pokemon) {
+			var style = {
+				content: name
+			};
+			return _React.createElement(
+				'div',
+				{ style: style, className: 'browser-mockup with-url' },
+				_React.createElement(
+					'div',
+					{ className: 'hoverslide' },
+					_React.createElement(
+						'div',
+						null,
+						pokemon.name
+					)
+				)
+			);
+		},
+		render: function render() {
+			var pokeList = this.state.collection.map(this.createListItem);
+			return _React.createElement(
+				'ul',
+				null,
+				pokeList
+			);
+		}
+	});
+
+	module.exports = List;
 });

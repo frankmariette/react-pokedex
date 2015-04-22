@@ -34,7 +34,8 @@
     "underscore-amd": "~1.5.2",
     "jsx-requirejs-plugin": "~0.6.0",
     "requirejs-text": "~2.0.14",
-    "react.backbone": "~0.6.0",
-    "jquery": "~2.1.3"
+    "jquery": "~2.1.3",
+    "requirejs-babel": "*",
+    "backbone-react-component": "~0.8.1"
   }
 }

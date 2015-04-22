@@ -1,5 +1,6 @@
 var gulp = require('gulp')
 	gls = require('gulp-live-server')
+  babel = require('gulp-babel')
 	karma = require('karma').server;
 
 gulp.task('test', function (done) {
@@ -9,8 +10,15 @@ gulp.task('test', function (done) {
   }, done);
 });
 
+gulp.task('babel', function(){
+  return gulp.src(["src/**/*.js", "src/**/*.jsx"])
+    .pipe(babel({modules:"amd"}))
+    .pipe(gulp.dest("public"));
+});
+
 gulp.task('watch', function(){
   gulp.watch('test/spec/**.*.js', ['concat']);
+  gulp.watch(['src/**/*.js', 'src/**/*.jsx'], ['babel']);
 });
 
 gulp.task('tdd', function (done) {
@@ -24,4 +32,4 @@ gulp.task('server', function(){
 	server.start();	
 });
 
-gulp.task('default', ['server', 'tdd', 'watch']);
+gulp.task('default', ['server', 'watch', 'babel']);
