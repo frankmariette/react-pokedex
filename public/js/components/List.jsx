@@ -1,4 +1,6 @@
 define(function(require){
+	'use strict';
+
 	var React = require('react.backbone');
 	var Pokemen = require('js/collections/Pokemen');
 
@@ -10,19 +12,19 @@ define(function(require){
 
 	var PokemonView = React.createBackboneClass({
 		render: function(){
-			var listStyle = {
-				listStyle:'none'
-			}
 			var index = 0;
-			var abilities = this.getModel().get('abilities').map(function(ability, index){
-				index++;
-				return ( <AbilityView key={index} ability={ability} /> );
-			});
+			// var abilities = this.getModel().get('abilities').map(function(ability, index){
+			// 	index++;
+			// 	return ( <AbilityView key={index} ability={ability} /> );
+			// });
+			var name = this.getModel().get('name');
+			var style = {
+				content: name
+			};
 			return (
-				<div className="browser-mockup with-url">
+				<div style={style} className="browser-mockup with-url">
 					<div className="hoverslide">
-						<li style={listStyle} id={this.getModel().get('national_id')}>{this.getModel().get('name')}</li>
-						<ul>{abilities}</ul>
+						<div>{name}</div>
 					</div>
 				</div>
 			)

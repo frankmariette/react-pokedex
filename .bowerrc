@@ -1,6 +1,3 @@
 {
-	"directory":"./public/bower_components",
-	 "scripts": {
-	    "postinstall": "./node_modules/.bin/bower-requirejs -t -c ./public/main.js"
-	  }
+	"directory":"./public/bower_components"
 }
