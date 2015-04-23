@@ -1,17 +1,28 @@
 import React from 'react';
-import List from 'js/components/List';
-import Pokemen from 'js/collections/Pokemen';
 import Backbone from 'backbone';
+import Router from 'react-router';
+import {DefaultRoute, Route} from 'react-router';
+import Layout from './pages/Layout';
+import Index from './pages/Index';
+import Pokemon from './pages/Pokemon';
+
+let routes = (
+	<Route handler={Layout}>
+		<Route name="home" path="/" handler={Index} />
+		<Route name="pokemon" path="/pokemon" handler={Pokemon} />
+	</Route>
+);
 
 class App extends Backbone.View {
-	constructor(){
+	constructor() {
 		super();
 	}
 	render() {
-		return (
-			React.render(<List collection={Pokemen} />, document.body)
-		);
+		Router.run(routes, function(Handler){
+			React.render(<Handler />, document.body);
+		})
 	}
 }
+
 
 export default App;

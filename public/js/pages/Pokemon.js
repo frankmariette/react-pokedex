@@ -1,4 +1,4 @@
-define(['exports', 'module', 'backbone', 'backbone.paginator', '../models/Pokemon', 'localstorage'], function (exports, module, _backbone, _backbonePaginator, _modelsPokemon, _localstorage) {
+define(['exports', 'module', 'react', '../components/List', '../collections/Pokemen'], function (exports, module, _react, _componentsList, _collectionsPokemen) {
 	'use strict';
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
@@ -11,37 +11,62 @@ define(['exports', 'module', 'backbone', 'backbone.paginator', '../models/Pokemo
 
 	var _inherits = function (subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; };
 
-	var _Backbone = _interopRequire(_backbone);
+	var _React = _interopRequire(_react);
 
-	var _PageableCollection2 = _interopRequire(_backbonePaginator);
+	var _List = _interopRequire(_componentsList);
 
-	var _Pokemon = _interopRequire(_modelsPokemon);
+	var _Pokemen = _interopRequire(_collectionsPokemen);
 
-	var _LocalStorage = _interopRequire(_localstorage);
+	var Pokemon = (function (_React$Component) {
+		function Pokemon(props) {
+			_classCallCheck(this, Pokemon);
 
-	var Pokemen = (function (_PageableCollection) {
-		function Pokemen() {
-			_classCallCheck(this, Pokemen);
-
-			_get(Object.getPrototypeOf(Pokemen.prototype), 'constructor', this).call(this);
-			this.model = _Pokemon;
-			this.LocalStorage = new _Backbone.LocalStorage('Pokemen');
-			this.url = 'http://pokeapi.co/api/v1/pokedex/1';
-			this.switchMode('client');
-			this.setPageSize(12);
+			_get(Object.getPrototypeOf(Pokemon.prototype), 'constructor', this).call(this, props);
+			this.state = { hasPreviousPage: false };
 		}
 
-		_inherits(Pokemen, _PageableCollection);
+		_inherits(Pokemon, _React$Component);
 
-		_createClass(Pokemen, [{
-			key: 'parse',
-			value: function parse(response) {
-				return response.pokemon;
+		_createClass(Pokemon, [{
+			key: 'componentWillMount',
+			value: function componentWillMount() {
+				_Pokemen.getFirstPage({ fetch: true });
+			}
+		}, {
+			key: 'handlePreviousClick',
+			value: function handlePreviousClick(event) {
+				var previous = _Pokemen.hasPreviousPage();
+				this.setState({ hasPreviousPage: previous });
+				if (_Pokemen.hasPreviousPage()) {
+					_Pokemen.getPreviousPage();
+				} else {
+					return null;
+				}
+			}
+		}, {
+			key: 'handleNextClick',
+			value: function handleNextClick() {
+				var previous = _Pokemen.hasPreviousPage(function (reponse) {
+					console.log(reponse);
+				});
+				this.setState({ hasPreviousPage: previous });
+				_Pokemen.getNextPage();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				// var hasPreviousPage = this.state.hasPreviousPage;
+				return _React.createElement(_List, {
+					hasPreviousPage: this.state.hasPreviousPage,
+					previousClick: this.handlePreviousClick.bind(this),
+					nextClick: this.handleNextClick.bind(this),
+					collection: _Pokemen
+				});
 			}
 		}]);
 
-		return Pokemen;
-	})(_PageableCollection2);
+		return Pokemon;
+	})(_React.Component);
 
-	module.exports = new Pokemen();
+	module.exports = Pokemon;
 });

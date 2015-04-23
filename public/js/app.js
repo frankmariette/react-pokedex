@@ -1,4 +1,4 @@
-define(['exports', 'module', 'react', 'js/components/List', 'js/collections/Pokemen', 'backbone'], function (exports, module, _react, _jsComponentsList, _jsCollectionsPokemen, _backbone) {
+define(['exports', 'module', 'react', 'backbone', 'react-router', './pages/Layout', './pages/Index', './pages/Pokemon'], function (exports, module, _react, _backbone, _reactRouter, _pagesLayout, _pagesIndex, _pagesPokemon) {
 	'use strict';
 
 	var _interopRequire = function (obj) { return obj && obj.__esModule ? obj['default'] : obj; };
@@ -13,11 +13,22 @@ define(['exports', 'module', 'react', 'js/components/List', 'js/collections/Poke
 
 	var _React = _interopRequire(_react);
 
-	var _List = _interopRequire(_jsComponentsList);
-
-	var _Pokemen = _interopRequire(_jsCollectionsPokemen);
-
 	var _Backbone = _interopRequire(_backbone);
+
+	var _Router = _interopRequire(_reactRouter);
+
+	var _Layout = _interopRequire(_pagesLayout);
+
+	var _Index = _interopRequire(_pagesIndex);
+
+	var _Pokemon = _interopRequire(_pagesPokemon);
+
+	var routes = _React.createElement(
+		_reactRouter.Route,
+		{ handler: _Layout },
+		_React.createElement(_reactRouter.Route, { name: 'home', path: '/', handler: _Index }),
+		_React.createElement(_reactRouter.Route, { name: 'pokemon', path: '/pokemon', handler: _Pokemon })
+	);
 
 	var App = (function (_Backbone$View) {
 		function App() {
@@ -31,7 +42,9 @@ define(['exports', 'module', 'react', 'js/components/List', 'js/collections/Poke
 		_createClass(App, [{
 			key: 'render',
 			value: function render() {
-				return _React.render(_React.createElement(_List, { collection: _Pokemen }), document.body);
+				_Router.run(routes, function (Handler) {
+					_React.render(_React.createElement(Handler, null), document.body);
+				});
 			}
 		}]);
 
