@@ -2,15 +2,6 @@ import React from 'react';
 import Pokemen from 'js/collections/Pokemen';
 import reactbackbone from 'backbone-react-component';
 
-class AbilityView extends React.Component {
-	constructor(){
-		super();
-	}
-	render(){
-		return (<li>{this.props.ability.name}</li>)
-	}
-}
-
 var List = React.createClass({
 	mixins: [Backbone.React.Component.mixin],
 	createListItem:function(pokemon){
