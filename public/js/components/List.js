@@ -14,6 +14,20 @@ define(['exports', 'module', 'react', 'js/collections/Pokemen', 'backbone-react-
 
 		mixins: [Backbone.React.Component.mixin],
 		createListItem: function createListItem(pokemon) {
+			var name = pokemon.get('name');
+			var abilities = pokemon.get('abilities');
+			var abilityStyle = {
+				padding: '5px'
+			};
+			if (abilities && abilities.length > 0) {
+				abilities = abilities.map(function (ability) {
+					return _React.createElement(
+						'div',
+						{ style: abilityStyle },
+						ability.name.charAt(0).toUpperCase() + ability.name.substring(1)
+					);
+				});
+			};
 			return _React.createElement(
 				'div',
 				{ className: 'col-xs-4 pokemon' },
@@ -23,31 +37,37 @@ define(['exports', 'module', 'react', 'js/collections/Pokemen', 'backbone-react-
 					_React.createElement(
 						'div',
 						{ className: 'panel-heading' },
-						pokemon.name.charAt(0).toUpperCase() + pokemon.name.substring(1)
+						name.charAt(0).toUpperCase() + name.substring(1)
 					),
 					_React.createElement(
 						'div',
 						{ className: 'panel-body' },
-						'Panel content'
+						_React.createElement(
+							'span',
+							null,
+							'Abilities'
+						),
+						_React.createElement(
+							'div',
+							{ className: 'abilities' },
+							abilities
+						)
 					)
 				)
 			);
 		},
-		componentWillMount: function componentWillMount() {
-			this.setState({ hasPreviousPage: this.props.hasPreviousPage });
+		handlePreviousClick: function handlePreviousClick() {
+			this.props.previousClick();
 		},
-		getInitialState: function getInitialState() {
-			return { hasPreviousPage: this.props.hasPreviousPage };
-		},
-		handlePreviousClick: function handlePreviousClick(component) {
-			this.props.previousClick(component);
-		},
-		handleNextClick: function handleNextClick(component) {
-			this.props.nextClick(component);
+		handleNextClick: function handleNextClick() {
+			this.props.nextClick();
 		},
 		render: function render() {
-			var pokeList = this.state.collection.map(this.createListItem);
-			var disabled = this.props.hasPreviousPage ? '' : 'disabled';
+			var self = this;
+			var pokeList = this.getCollection().map(function (model) {
+				return self.createListItem(model);
+			});
+			var previousActive = this.props.pageInfo.currentPage > this.props.pageInfo.firstPage ? '' : 'disabled';
 			return _React.createElement(
 				'div',
 				null,
@@ -61,7 +81,7 @@ define(['exports', 'module', 'react', 'js/collections/Pokemen', 'backbone-react-
 					{ className: 'pager' },
 					_React.createElement(
 						'li',
-						{ className: 'previous' + ' ' + disabled, onClick: this.handlePreviousClick },
+						{ className: 'previous' + ' ' + previousActive, onClick: this.handlePreviousClick },
 						_React.createElement(
 							'a',
 							{ href: 'javascript:void(0)' },

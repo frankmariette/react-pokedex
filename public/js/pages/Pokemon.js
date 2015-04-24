@@ -22,7 +22,11 @@ define(['exports', 'module', 'react', '../components/List', '../collections/Poke
 			_classCallCheck(this, Pokemon);
 
 			_get(Object.getPrototypeOf(Pokemon.prototype), 'constructor', this).call(this, props);
-			this.state = { hasPreviousPage: false };
+			// this.state = {
+			// 	currentPage: Pokemen.state.currentPage,
+			// 	firstPage: Pokemen.state.firstPage,
+			// 	lastPage: Pokemen.state.lastPage
+			// };
 		}
 
 		_inherits(Pokemon, _React$Component);
@@ -30,25 +34,23 @@ define(['exports', 'module', 'react', '../components/List', '../collections/Poke
 		_createClass(Pokemon, [{
 			key: 'componentWillMount',
 			value: function componentWillMount() {
-				_Pokemen.getFirstPage({ fetch: true });
+				_Pokemen.getFirstPage();
 			}
 		}, {
 			key: 'handlePreviousClick',
-			value: function handlePreviousClick(event) {
-				var previous = _Pokemen.hasPreviousPage();
-				this.setState({ hasPreviousPage: previous });
+			value: function handlePreviousClick() {
 				if (_Pokemen.hasPreviousPage()) {
+					this.setState({ hasPreviousPage: true });
 					_Pokemen.getPreviousPage();
 				} else {
+					this.setState({ hasPreviousPage: false });
 					return null;
 				}
 			}
 		}, {
 			key: 'handleNextClick',
 			value: function handleNextClick() {
-				var previous = _Pokemen.hasPreviousPage(function (reponse) {
-					console.log(reponse);
-				});
+				var previous = _Pokemen.hasPreviousPage();
 				this.setState({ hasPreviousPage: previous });
 				_Pokemen.getNextPage();
 			}
@@ -57,7 +59,7 @@ define(['exports', 'module', 'react', '../components/List', '../collections/Poke
 			value: function render() {
 				// var hasPreviousPage = this.state.hasPreviousPage;
 				return _React.createElement(_List, {
-					hasPreviousPage: this.state.hasPreviousPage,
+					pageInfo: _Pokemen.state,
 					previousClick: this.handlePreviousClick.bind(this),
 					nextClick: this.handleNextClick.bind(this),
 					collection: _Pokemen

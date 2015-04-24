@@ -5,25 +5,27 @@ import Pokemen from '../collections/Pokemen';
 class Pokemon extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {hasPreviousPage: false};
+		// this.state = {
+		// 	currentPage: Pokemen.state.currentPage,
+		// 	firstPage: Pokemen.state.firstPage,
+		// 	lastPage: Pokemen.state.lastPage
+		// };
 	}
 	componentWillMount(){
-		Pokemen.getFirstPage({fetch: true});
+		Pokemen.getFirstPage();
 	}
-	handlePreviousClick(event){
-		var previous = Pokemen.hasPreviousPage();
-		this.setState({hasPreviousPage: previous});
+	handlePreviousClick(){
 		if (Pokemen.hasPreviousPage()){
+			this.setState({hasPreviousPage:true});
 			Pokemen.getPreviousPage();
 		}
 		else {
+			this.setState({hasPreviousPage:false});
 			return null;
 		}
 	}
 	handleNextClick(){
-		var previous = Pokemen.hasPreviousPage(function(reponse){
-			console.log(reponse);
-		});
+		var previous = Pokemen.hasPreviousPage();
 		this.setState({hasPreviousPage: previous});
 		Pokemen.getNextPage();
 	}
@@ -31,7 +33,7 @@ class Pokemon extends React.Component {
 		// var hasPreviousPage = this.state.hasPreviousPage;
 		return(
 			<List 
-				hasPreviousPage={this.state.hasPreviousPage}
+				pageInfo={Pokemen.state}
 				previousClick={this.handlePreviousClick.bind(this)} 
 				nextClick={this.handleNextClick.bind(this)} 
 				collection={Pokemen} 

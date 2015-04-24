@@ -10,7 +10,7 @@ class Pokemen extends PageableCollection {
 		this.LocalStorage = new Backbone.LocalStorage("Pokemen");
 		this.url = "http://pokeapi.co/api/v1/pokedex/1";
 		this.switchMode("client");
-		this.setPageSize(12);
+		this.setPageSize(9);
 	}
 	parse (response) {
 		return response.pokemon;

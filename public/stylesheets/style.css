@@ -4,12 +4,31 @@
 @import "../bower_components/bootstrap-material-design/dist/css/material-fullpalette.css.map";
 @import "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css";
 
-.welcome {
-	font-size: 5.5em;
+#welcome {
+  position: relative;
+  top: 10em;
+  left:5em;
+}
+
+#welcome h1 {
+  font-size: 5.5em;
+}
+
+#welcome a {
+  position: relative;
+  left: 2em;
+}
+
+section {
+  min-height: 100%;
 }
 
 .pokemon {
 	padding: 15px;
+}
+.abilities {
+	display: flex;
+	flex-flow: row wrap;
 }
 
 .page-enter {
@@ -23,9 +42,13 @@
 
 .page-leave {
   opacity: 1;
-  transition: opacity .15s ease-out;
+  transition: opacity .15s ease-in-out;
 }
 
 .page-leave.page-leave-active {
   opacity: 0.01;
+}
+
+#index {
+  width: 100%;
 }
